@@ -13,6 +13,7 @@ import Alert from "./Alert";
 import Loader from "./Loader";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencilSquare } from "@fortawesome/free-solid-svg-icons";
+import { backendApi } from "../urlConfig.js";
 
 const Create = () => {
   const [color, setColor] = useState("");
@@ -35,7 +36,7 @@ const Create = () => {
   
   useEffect(() => {
     const fetchInv = async () => {
-      const rsp = await fetch("http://localhost:5000/getInterviews");
+      const rsp = await fetch(`${backendApi}/getInterviews`);
       const data = await rsp.json();
       if (data.ok) {
         setInv(data.inv);
@@ -91,7 +92,7 @@ const Create = () => {
       }, 2000);
     } else {
       setLoad(1);
-      const rsp = await fetch("http://localhost:5000/addInterview", {
+      const rsp = await fetch(`${backendApi}/addInterview`, {
         method: "post",
         headers: {
           "Content-type": "application/json",
@@ -167,7 +168,7 @@ const Create = () => {
     let en=renTime.current.value;
     let id=localStorage['sId']
     
-    const rsp=await fetch("http://localhost:5000/updateInterview",{
+    const rsp=await fetch(`${backendApi}/updateInterview`,{
       method:'post',
       headers:{
         'Content-Type':'application/json'
